@@ -42,20 +42,22 @@ def get_local_video_info(vid_uri):
 
 def get_parser():
     parser = argparse.ArgumentParser(description="PyTorch MiVOLO Inference")
-    parser.add_argument("--input", type=str, default=None, required=True, help="image file or folder with images")
-    parser.add_argument("--output", type=str, default=None, required=True, help="folder for output results")
-    parser.add_argument("--detector-weights", type=str, default=None, required=True, help="Detector weights (YOLOv8).")
-    parser.add_argument("--checkpoint", default="", type=str, required=True, help="path to mivolo checkpoint")
+    # parser.add_argument("--input", type=str, default= "C:/Users/Manar/Documents/Multi-Camera-ReID/test_videos/supermarket_ai_raw.mp4", required=False, help="image file or folder with images")
+    # parser.add_argument("--input", type=str, default="C:/Users/Manar/Documents/deepface/images/baby2.jpg", required=False, help="image file or folder with images")
+    parser.add_argument("--input", type=str, default="rtsp://admin:1234567a@192.168.100.109:554/cam/realmonitor?channel=1&subtype=0", required=False, help="image file or folder with images")
+    parser.add_argument("--output", type=str, default="output/image_baby", required=False, help="folder for output results")
+    parser.add_argument("--detector-weights", type=str, default="models/yolov8x_person_face.pt", required=False, help="Detector weights (YOLOv8).")
+    parser.add_argument("--checkpoint", default="models/mivolo_imbd.pth.tar", type=str, required=False, help="path to mivolo checkpoint")
 
     parser.add_argument(
-        "--with-persons", action="store_true", default=False, help="If set model will run with persons, if available"
+        "--with-persons", action="store_true", default=True, help="If set model will run with persons, if available"
     )
     parser.add_argument(
-        "--disable-faces", action="store_true", default=False, help="If set model will use only persons if available"
+        "--disable-faces", action="store_true", default=True, help="If set model will use only persons if available"
     )
 
-    parser.add_argument("--draw", action="store_true", default=False, help="If set, resulted images will be drawn")
-    parser.add_argument("--device", default="cuda", type=str, help="Device (accelerator) to use.")
+    parser.add_argument("--draw", action="store_true", default=True, help="If set, resulted images will be drawn")
+    parser.add_argument("--device", default="cpu", type=str, help="Device (accelerator) to use.")
 
     return parser
 
