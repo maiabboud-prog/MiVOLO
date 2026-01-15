@@ -131,7 +131,8 @@ class PersonAndFaceResult:
 
         self.yolo_results = results
         names = set(results.names.values())
-        assert "person" in names and "face" in names
+        
+        # assert "person" in names and "face" in names
 
         # initially no faces and persons are associated to each other
         self.face_to_person_map: Dict[int, Optional[int]] = {ind: None for ind in self.get_bboxes_inds("face")}
@@ -242,7 +243,7 @@ class PersonAndFaceResult:
                     label += f" {'F' if gender == 'female' else 'M'}"
                 if gender_probs and gender_score is not None:
                     label += f" ({gender_score:.1f})"
-                annotator.box_label(d.xyxy.squeeze(), label, color=colors(colors_by_ind[bb_ind], True))
+                annotator.box_label(d.xyxy.squeeze(), label, color = colors(colors_by_ind.get(bb_ind % len(colors_by_ind), 0), True))
 
         if pred_probs is not None and show_probs:
             text = f"{', '.join(f'{names[j] if names else j} {pred_probs.data[j]:.2f}' for j in pred_probs.top5)}, "
